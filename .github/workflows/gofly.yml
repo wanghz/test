@@ -12,7 +12,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  flight:
+  Convert:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -20,29 +20,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
-
-      - name: startSubconverter
-        run: |
-          # run the container detached, forward internal port 25500 to host port 25500
-          docker run -d --restart=always -p 2550:25500 tindy2013/subconverter:latest
-          # then check its status
-          #curl http://localhost:2550/version
-          # if you see `subconverter vx.x.x backend` then the container is up and running
-          docker ps
-          sleep 5
+      
       # Runs a single command using the runners shell
-      - name: the download step
+      - name: Download Release
         run: |
-          sh ./run.sh
-      - name: back a little bit up
+          wget https://github.com/xmdhs/clash2singbox/releases/download/v0.1.4/clash2singbox-linux-amd64
+
+      - name: Run Program
         run: |
-          cp ./htonly.yml ./last.yml
-      - name: Run the filter 1
-        run: |
-          python ./filter.py
-      - name: Run the filter 2
-        run: |
-          python ./filter_local_data.py      
+          ./clash2singbox-linux-amd64 -i ./last.yml -o ./test.json
+
       #Commit
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
