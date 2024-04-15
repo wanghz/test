@@ -4,11 +4,6 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   schedule:   
     - cron: '6 1,4,7,22 * * *'   #国际标准时间，北京时间+8，即下午1点钟
   # Allows you to run this workflow manually from the Actions tab
