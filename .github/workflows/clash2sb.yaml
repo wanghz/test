@@ -25,6 +25,7 @@ jobs:
       - name: Download Release
         run: |
           wget https://github.com/xmdhs/clash2singbox/releases/download/v0.1.4/clash2singbox-linux-amd64
+          chmod +x ./clash2singbox-linux-amd64
 
       - name: Run Program
         run: |
